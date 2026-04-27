@@ -1,26 +1,164 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-gold-1: #E8CB94;
+  --color-gold-2: #C9A461;
+  --color-gold-3: #A07F3F;
+  --color-gold-soft: #D7B679;
+  --color-charcoal: #2A2A2A;
+  --color-charcoal-2: #3A3A3A;
+  --color-charcoal-3: #5A5A56;
+  --color-ivory: #FBF8F2;
+  --color-ivory-2: #F4EEE2;
+  --color-cream: #EFE7D5;
+
+  --font-sans: var(--font-manrope);
+  --font-serif: var(--font-cormorant);
+  --font-mono: var(--font-jetbrains);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  --gold-grad: linear-gradient(135deg, #E8CB94 0%, #C9A461 45%, #A07F3F 100%);
+  --line: rgba(58, 58, 58, 0.10);
+  --line-strong: rgba(58, 58, 58, 0.18);
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-manrope), system-ui, sans-serif;
+  background: #FBF8F2;
+  color: #2A2A2A;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-size: 16px;
+  line-height: 1.55;
 }
+
+/* Gold gradient text utility */
+.gold-text {
+  background: var(--gold-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Eyebrow component */
+.eyebrow {
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #A07F3F;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.eyebrow::before {
+  content: "";
+  width: 28px;
+  height: 1px;
+  background: #C9A461;
+}
+
+/* Button styles */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 28px;
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+.btn-primary {
+  background: var(--gold-grad);
+  color: #fff;
+  box-shadow: 0 8px 24px -8px rgba(160, 127, 63, 0.5);
+}
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 30px -8px rgba(160, 127, 63, 0.6);
+}
+.btn-ghost {
+  background: transparent;
+  color: #2A2A2A;
+  border: 1px solid var(--line-strong);
+}
+.btn-ghost:hover {
+  border-color: #C9A461;
+  color: #A07F3F;
+}
+
+/* Arrow for buttons */
+.btn-arrow {
+  width: 16px;
+  height: 10px;
+  position: relative;
+  display: inline-block;
+}
+.btn-arrow::before, .btn-arrow::after {
+  content: "";
+  position: absolute;
+  background: currentColor;
+}
+.btn-arrow::before {
+  top: 50%; left: 0; right: 0;
+  height: 1px;
+  transform: translateY(-0.5px);
+}
+.btn-arrow::after {
+  right: 0; top: 50%;
+  width: 6px; height: 6px;
+  border-top: 1px solid currentColor;
+  border-right: 1px solid currentColor;
+  transform: translateY(-50%) rotate(45deg);
+  background: transparent;
+}
+
+/* Scroll cue */
+.scroll-cue::after {
+  content: "";
+  width: 1px; height: 32px;
+  background: linear-gradient(to bottom, #C9A461, transparent);
+  animation: scrollPulse 2s ease infinite;
+}
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; transform: scaleY(0.6); }
+  50% { opacity: 1; transform: scaleY(1); }
+}
+
+/* Marquee */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Nav link underline */
+.nav-link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 100%;
+  bottom: 0;
+  height: 1px;
+  background: var(--gold-grad);
+  transition: right 0.3s ease;
+}
+.nav-link-underline:hover::after { right: 0; }

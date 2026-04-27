@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum MeetingStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+}
+
+model MeetingRequest {
+  id            String        @id @default(cuid())
+  createdAt     DateTime      @default(now())
+  status        MeetingStatus @default(PENDING)
+  interests     String[]
+  scheduledDate DateTime
+  scheduledTime String
+  fullName      String
+  organization  String
+  phone         String
+  email         String?
+  notes         String?
+  ipAddress     String?
+  userAgent     String?
+  assignedTo    String?
+  internalNotes String?
+}
